@@ -1,0 +1,6 @@
+{
+  "name": "Sleep Tracker & Health Advisor",
+  "description": "Track sleeping hours, analyze sleep quality and circadian consistency, view rich health analytics, and receive personalized AI-powered sleep and health advice.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
