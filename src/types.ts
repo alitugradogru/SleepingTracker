@@ -83,4 +83,10 @@ export interface ChatMessage {
   timestamp: string;
 }
 
-export type ViewTab = 'dashboard' | 'logs' | 'analytics' | 'ai-advisor' | 'tools';
+export interface UserProfile {
+  name: string;
+  email: string;
+  signedUpAt?: string;
+}
+
+export type ViewTab = 'dashboard' | 'logs' | 'analytics' | 'ai-advisor' | 'tools' | 'signup';

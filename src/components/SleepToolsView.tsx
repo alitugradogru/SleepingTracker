@@ -18,7 +18,7 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
 
   // Breathing State
   const [isBreathingActive, setIsBreathingActive] = useState<boolean>(false);
-  const [breathPhase, setBreathPhase] = useState<'Inhale' | 'Hold' | 'Exhale'>('Inhale');
+  const [breathPhase, setBreathPhase] = useState<'Nefes Al' | 'Tut' | 'Nefes Ver'>('Nefes Al');
   const [breathSec, setBreathSec] = useState<number>(4);
 
   // Breathing Interval
@@ -28,14 +28,14 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
       timer = setInterval(() => {
         setBreathSec((prev) => {
           if (prev <= 1) {
-            if (breathPhase === 'Inhale') {
-              setBreathPhase('Hold');
+            if (breathPhase === 'Nefes Al') {
+              setBreathPhase('Tut');
               return 7;
-            } else if (breathPhase === 'Hold') {
-              setBreathPhase('Exhale');
+            } else if (breathPhase === 'Tut') {
+              setBreathPhase('Nefes Ver');
               return 8;
             } else {
-              setBreathPhase('Inhale');
+              setBreathPhase('Nefes Al');
               return 4;
             }
           }
@@ -62,7 +62,6 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
   const cycle6Bed = calculateSleepCycles(calcWakeTime, 6); // 9h 15m
   const cycle5Bed = calculateSleepCycles(calcWakeTime, 5); // 7h 45m
   const cycle4Bed = calculateSleepCycles(calcWakeTime, 4); // 6h 15m
-  const cycle3Bed = calculateSleepCycles(calcWakeTime, 3); // 4h 45m
 
   const caffeineCutoff = calculateCaffeineCutoff(goals.targetBedtime);
 
@@ -73,10 +72,10 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
       <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl">
         <h1 className="text-2xl font-extrabold text-white flex items-center space-x-2">
           <Clock className="w-6 h-6 text-indigo-400" />
-          <span>Circadian & Sleep Health Tools</span>
+          <span>Sirkadiyen & Uyku Sağlığı Araçları</span>
         </h1>
         <p className="text-xs text-slate-400 mt-1">
-          Calculate 90-minute sleep cycles, caffeine cutoffs, and practice relaxation breathing.
+          90 dakikalık uyku döngülerini, kafein kesilme saatlerini hesaplayın ve rahatlama nefes egzersizleri yapın.
         </p>
       </div>
 
@@ -89,15 +88,15 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
               <Moon className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">Sleep Cycle Alarm Calculator</h2>
-              <p className="text-xs text-slate-400">Avoid sleep inertia by waking up at the end of a 90-minute cycle</p>
+              <h2 className="text-base font-bold text-white">Uyku Döngüsü Hesaplayıcı</h2>
+              <p className="text-xs text-slate-400">90 dakikalık döngünün sonunda uyanarak sersemliği önleyin</p>
             </div>
           </div>
 
           <div>
             <label className="block text-xs font-medium text-slate-300 mb-1.5 flex items-center space-x-1">
               <Sun className="w-3.5 h-3.5 text-amber-400" />
-              <span>What time do you want to wake up?</span>
+              <span>Hangi saatte uyanmak istiyorsunuz?</span>
             </label>
             <input
               type="time"
@@ -108,32 +107,32 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
           </div>
 
           <div className="space-y-2 pt-2">
-            <span className="text-xs text-slate-400 font-medium block">Ideal bedtimes to wake up refreshed:</span>
+            <span className="text-xs text-slate-400 font-medium block">Dinç uyanmak için ideal yatış saatleri:</span>
             
             <div className="p-3 rounded-2xl bg-emerald-950/40 border border-emerald-800/40 flex items-center justify-between">
               <div>
                 <span className="text-sm font-bold text-emerald-300">{cycle5Bed}</span>
-                <span className="text-[11px] text-slate-400 block">5 Cycles (7h 30m sleep + 15m latency)</span>
+                <span className="text-[11px] text-slate-400 block">5 Döngü (7s 30dk uyku + 15dk dalma süresi)</span>
               </div>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">
-                Recommended
+                Tavsiye Edilen
               </span>
             </div>
 
             <div className="p-3 rounded-2xl bg-indigo-950/40 border border-indigo-800/40 flex items-center justify-between">
               <div>
                 <span className="text-sm font-bold text-indigo-300">{cycle6Bed}</span>
-                <span className="text-[11px] text-slate-400 block">6 Cycles (9h sleep + 15m latency)</span>
+                <span className="text-[11px] text-slate-400 block">6 Döngü (9s uyku + 15dk dalma süresi)</span>
               </div>
-              <span className="text-[10px] text-indigo-300">Deep Recovery</span>
+              <span className="text-[10px] text-indigo-300">Derin Dinlenme</span>
             </div>
 
             <div className="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
               <div>
                 <span className="text-sm font-bold text-slate-200">{cycle4Bed}</span>
-                <span className="text-[11px] text-slate-400 block">4 Cycles (6h sleep + 15m latency)</span>
+                <span className="text-[11px] text-slate-400 block">4 Döngü (6s uyku + 15dk dalma süresi)</span>
               </div>
-              <span className="text-[10px] text-slate-400">Minimum</span>
+              <span className="text-[10px] text-slate-400">Asgari</span>
             </div>
           </div>
         </div>
@@ -145,19 +144,19 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
               <Coffee className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">Caffeine Cutoff Clock</h2>
-              <p className="text-xs text-slate-400">Protect adenosine receptors and deep sleep quality</p>
+              <h2 className="text-base font-bold text-white">Kafein Kesilme Saati</h2>
+              <p className="text-xs text-slate-400">Adenozin reseptörlerini ve derin uyku kalitesini koruyun</p>
             </div>
           </div>
 
           <div className="p-4 rounded-2xl bg-amber-950/30 border border-amber-800/40 space-y-2">
-            <span className="text-xs text-amber-300 font-semibold block">Your Target Bedtime: {goals.targetBedtime}</span>
+            <span className="text-xs text-amber-300 font-semibold block">Hedef Yatış Saatiniz: {goals.targetBedtime}</span>
             <div className="flex items-baseline space-x-2">
               <span className="text-3xl font-extrabold text-white">{caffeineCutoff}</span>
-              <span className="text-xs text-amber-300 font-medium">Last Coffee / Energy Drink</span>
+              <span className="text-xs text-amber-300 font-medium">Son Kahve / Enerji İçeceği</span>
             </div>
             <p className="text-xs text-slate-300 leading-relaxed pt-1">
-              Caffeine has a half-life of 5-8 hours. Consuming caffeine after {caffeineCutoff} blocks adenosine receptors in the brain, reducing deep Stage 3 slow-wave sleep.
+              Kafeinin yarılanma ömrü 5-8 saattir. {caffeineCutoff} sonrasında kafein tüketmek beyindeki adenozin reseptörlerini bloklar ve derin uyku süresini azaltır.
             </p>
           </div>
 
@@ -165,15 +164,15 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
           <div className="pt-2 space-y-3">
             <h3 className="text-xs font-semibold text-slate-300 flex items-center space-x-1.5">
               <Volume2 className="w-4 h-4 text-indigo-400" />
-              <span>Relaxing Ambient Sound Synthesizer</span>
+              <span>Rahatlatıcı Ortam Sesi Sentezleyici</span>
             </h3>
 
             <div className="grid grid-cols-2 gap-2">
               {[
-                { id: 'rain', label: 'Rainfall', icon: '🌧️' },
-                { id: 'waves', label: 'Ocean Waves', icon: '🌊' },
-                { id: 'crickets', label: 'Night Crickets', icon: '🦗' },
-                { id: 'pink_noise', label: 'Deep Pink Noise', icon: '💨' },
+                { id: 'rain', label: 'Yağmur Sesi', icon: '🌧️' },
+                { id: 'waves', label: 'Okyanus Dalgası', icon: '🌊' },
+                { id: 'crickets', label: 'Cırcır Böceği', icon: '🦗' },
+                { id: 'pink_noise', label: 'Derin Rüzgar Sesi', icon: '💨' },
               ].map((snd) => (
                 <button
                   key={snd.id}
@@ -192,7 +191,7 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
 
             {activeSound !== 'none' && (
               <div className="flex items-center space-x-3 pt-1">
-                <span className="text-xs text-slate-400">Vol:</span>
+                <span className="text-xs text-slate-400">Ses:</span>
                 <input
                   type="range"
                   min="0"
@@ -217,8 +216,8 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
               <Wind className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">4-7-8 Parasympathetic Breathing Exercise</h2>
-              <p className="text-xs text-slate-400">Lowers heart rate and stimulates the vagus nerve before sleep</p>
+              <h2 className="text-base font-bold text-white">4-7-8 Parasempatik Nefes Egzersizi</h2>
+              <p className="text-xs text-slate-400">Uykudan önce kalp atış hızını düşürür ve vagus sinirini uyarır</p>
             </div>
           </div>
 
@@ -229,7 +228,7 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
             }`}
           >
             {isBreathingActive ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-            <span>{isBreathingActive ? 'Stop' : 'Start Practice'}</span>
+            <span>{isBreathingActive ? 'Durdur' : 'Egzersizi Başlat'}</span>
           </button>
         </div>
 
@@ -243,19 +242,19 @@ export const SleepToolsView: React.FC<SleepToolsViewProps> = ({ goals }) => {
             </div>
 
             <p className="text-xs text-slate-300 max-w-sm mx-auto">
-              {breathPhase === 'Inhale' && 'Inhale quietly through your nose for 4 seconds.'}
-              {breathPhase === 'Hold' && 'Hold your breath calmly for 7 seconds.'}
-              {breathPhase === 'Exhale' && 'Exhale completely through your mouth for 8 seconds.'}
+              {breathPhase === 'Nefes Al' && 'Burnunuzdan 4 saniye sakince nefes alın.'}
+              {breathPhase === 'Tut' && 'Nefesinizi 7 saniye sakince tutun.'}
+              {breathPhase === 'Nefes Ver' && 'Ağzınızdan 8 saniye boyunca tamamen nefes verin.'}
             </p>
           </div>
         ) : (
           <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800/80 text-xs text-slate-300 space-y-2">
-            <p className="font-semibold text-white">How the 4-7-8 technique works:</p>
+            <p className="font-semibold text-white">4-7-8 tekniğinin uygulanışı:</p>
             <ul className="list-disc list-inside space-y-1 text-slate-400">
-              <li>Inhale quietly through your nose for 4 seconds.</li>
-              <li>Hold your breath for 7 seconds.</li>
-              <li>Exhale completely through your mouth for 8 seconds.</li>
-              <li>Repeat for 4 full breath cycles to induce physiological calming.</li>
+              <li>Burnunuzdan 4 saniye sakince nefes alın.</li>
+              <li>Nefesinizi 7 saniye tutun.</li>
+              <li>Ağzınızdan 8 saniye boyunca nefes verin.</li>
+              <li>Fizyolojik rahatlama için 4 döngü boyunca tekrarlayın.</li>
             </ul>
           </div>
         )}

@@ -84,36 +84,39 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
     onClose();
   };
 
-  const moodOptions: { value: WakingMood; emoji: string; color: string }[] = [
-    { value: 'Refreshed', emoji: '🌟', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
-    { value: 'Energetic', emoji: '⚡', color: 'bg-amber-500/20 text-amber-300 border-amber-500/30' },
-    { value: 'Calm', emoji: '🧘', color: 'bg-blue-500/20 text-blue-300 border-blue-500/30' },
-    { value: 'Groggy', emoji: '🥴', color: 'bg-purple-500/20 text-purple-300 border-purple-500/30' },
-    { value: 'Tired', emoji: '🥱', color: 'bg-slate-700 text-slate-300 border-slate-600' },
-    { value: 'Anxious', emoji: '😟', color: 'bg-rose-500/20 text-rose-300 border-rose-500/30' },
-    { value: 'Headache', emoji: '🤕', color: 'bg-red-500/20 text-red-300 border-red-500/30' },
+  const moodOptions: { value: WakingMood; label: string; emoji: string; color: string }[] = [
+    { value: 'Refreshed', label: 'Dinlenmiş', emoji: '🌟', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
+    { value: 'Energetic', label: 'Enerjik', emoji: '⚡', color: 'bg-amber-500/20 text-amber-300 border-amber-500/30' },
+    { value: 'Calm', label: 'Sakin', emoji: '🧘', color: 'bg-blue-500/20 text-blue-300 border-blue-500/30' },
+    { value: 'Groggy', label: 'Sersem', emoji: '🥴', color: 'bg-purple-500/20 text-purple-300 border-purple-500/30' },
+    { value: 'Tired', label: 'Yorgun', emoji: '🥱', color: 'bg-slate-700 text-slate-300 border-slate-600' },
+    { value: 'Anxious', label: 'Endişeli', emoji: '😟', color: 'bg-rose-500/20 text-rose-300 border-rose-500/30' },
+    { value: 'Headache', label: 'Baş Ağrılı', emoji: '🤕', color: 'bg-red-500/20 text-red-300 border-red-500/30' },
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 flex items-center sm:justify-center justify-end p-0 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
+      <div className="relative w-full max-w-lg bg-slate-900 border border-slate-800 rounded-t-[32px] sm:rounded-3xl shadow-2xl overflow-hidden my-0 sm:my-8 max-h-[90vh]">
         
+        {/* Mobile Grab Handle */}
+        <div className="w-12 h-1.5 bg-slate-700/80 rounded-full mx-auto my-2.5 sm:hidden" />
+
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-800 bg-slate-900/80">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800 bg-slate-900/80">
           <div className="flex items-center space-x-3">
             <div className="p-2.5 rounded-xl bg-indigo-600/20 border border-indigo-500/30 text-indigo-400">
               <Moon className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-white">
-                {editingLog ? 'Edit Sleep Session' : 'Log Night Sleep'}
+              <h2 className="text-base sm:text-lg font-bold text-white">
+                {editingLog ? 'Uyku Oturumunu Düzenle' : 'Gece Uykusunu Kaydet'}
               </h2>
-              <p className="text-xs text-slate-400">Record bedtime, quality, and health factors</p>
+              <p className="text-[11px] text-slate-400">Yatış saati, kalite ve sağlık etkenlerini girin</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+            className="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -125,7 +128,7 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
           {/* Row 1: Date & Sleep Duration Preview */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1.5">Sleep Date</label>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">Uyku Tarihi</label>
               <input
                 type="date"
                 required
@@ -137,11 +140,11 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
 
             <div className="p-3.5 rounded-xl bg-indigo-950/40 border border-indigo-800/40 flex items-center justify-between">
               <div>
-                <span className="text-xs font-medium text-indigo-300 block">Total Calculated Sleep</span>
+                <span className="text-xs font-medium text-indigo-300 block">Hesaplanan Toplam Uyku</span>
                 <span className="text-xl font-bold text-white">{formatDuration(durationMins)}</span>
               </div>
               <div className="text-right text-xs text-slate-400">
-                <span>{(durationMins / 60).toFixed(1)} hours</span>
+                <span>{(durationMins / 60).toFixed(1)} saat</span>
               </div>
             </div>
           </div>
@@ -151,7 +154,7 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1.5 flex items-center space-x-1.5">
                 <Moon className="w-3.5 h-3.5 text-indigo-400" />
-                <span>Bedtime (Went to Sleep)</span>
+                <span>Yatış Saati (Uykuna Geçiş)</span>
               </label>
               <input
                 type="time"
@@ -165,7 +168,7 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1.5 flex items-center space-x-1.5">
                 <Sun className="w-3.5 h-3.5 text-amber-400" />
-                <span>Wake Time (Woke Up)</span>
+                <span>Uyanış Saati</span>
               </label>
               <input
                 type="time"
@@ -180,7 +183,7 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
           {/* Row 3: Quality Rating (1-5 stars) */}
           <div>
             <label className="block text-xs font-medium text-slate-300 mb-2">
-              Sleep Quality Score ({quality} / 5 stars)
+              Uyku Kalitesi Puanı ({quality} / 5 yıldız)
             </label>
             <div className="flex items-center space-x-2">
               {[1, 2, 3, 4, 5].map((star) => (
@@ -198,11 +201,11 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
                 </button>
               ))}
               <span className="text-xs text-slate-400 ml-2">
-                {quality === 5 && 'Restful & Deep'}
-                {quality === 4 && 'Good Sleep'}
-                {quality === 3 && 'Fair / Moderate'}
-                {quality === 2 && 'Restless'}
-                {quality === 1 && 'Poor / Unrested'}
+                {quality === 5 && 'Dinlendirici & Derin'}
+                {quality === 4 && 'İyi Uyku'}
+                {quality === 3 && 'Orta / Makul'}
+                {quality === 2 && 'Huzursuz'}
+                {quality === 1 && 'Kötü / Yorgun'}
               </span>
             </div>
           </div>
@@ -212,35 +215,35 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1.5 flex items-center space-x-1">
                 <Clock className="w-3.5 h-3.5 text-indigo-400" />
-                <span>Time to Fall Asleep</span>
+                <span>Uykuya Dalma Süresi</span>
               </label>
               <select
                 value={latencyMinutes}
                 onChange={(e) => setLatencyMinutes(Number(e.target.value))}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-sm focus:outline-none focus:border-indigo-500"
               >
-                <option value={5}>Instant (&lt; 5 mins)</option>
-                <option value={10}>10 - 15 minutes (Ideal)</option>
-                <option value={20}>20 - 30 minutes</option>
-                <option value={45}>30 - 60 minutes (Slow)</option>
-                <option value={90}>Over 1 hour (Insomnia)</option>
+                <option value={5}>Hemen (&lt; 5 dk)</option>
+                <option value={10}>10 - 15 dakika (İdeal)</option>
+                <option value={20}>20 - 30 dakika</option>
+                <option value={45}>30 - 60 dakika (Yavaş)</option>
+                <option value={90}>1 saatten fazla (Uykusuzluk)</option>
               </select>
             </div>
 
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1.5">
-                Night Awakenings
+                Gece Uyanma Sayısı
               </label>
               <select
                 value={awakenings}
                 onChange={(e) => setAwakenings(Number(e.target.value))}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-sm focus:outline-none focus:border-indigo-500"
               >
-                <option value={0}>0 times (Slept through)</option>
-                <option value={1}>1 time (Briefly)</option>
-                <option value={2}>2 times</option>
-                <option value={3}>3 times</option>
-                <option value={4}>4+ times (Frequent waking)</option>
+                <option value={0}>0 kez (Deliksiz uyku)</option>
+                <option value={1}>1 kez (Kısa süreli)</option>
+                <option value={2}>2 kez</option>
+                <option value={3}>3 kez</option>
+                <option value={4}>4+ kez (Sık uyanma)</option>
               </select>
             </div>
           </div>
@@ -248,7 +251,7 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
           {/* Row 5: Waking Mood */}
           <div>
             <label className="block text-xs font-medium text-slate-300 mb-2">
-              Waking Mood & Energy
+              Uyanış Hali / Enerjisi
             </label>
             <div className="flex flex-wrap gap-2">
               {moodOptions.map((opt) => {
@@ -265,7 +268,7 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
                     }`}
                   >
                     <span>{opt.emoji}</span>
-                    <span>{opt.value}</span>
+                    <span>{opt.label}</span>
                   </button>
                 );
               })}
@@ -276,7 +279,7 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
           <div>
             <label className="block text-xs font-medium text-slate-300 mb-2 flex items-center space-x-1.5">
               <Tag className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Evening Lifestyle Factors & Environment</span>
+              <span>Akşam Yaşam Tarzı ve Çevre Etkenleri</span>
             </label>
             <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto p-1">
               {(Object.keys(FACTOR_LABELS) as LifestyleFactor[]).map((factor) => {
@@ -308,13 +311,13 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
           <div>
             <label className="block text-xs font-medium text-slate-300 mb-1.5 flex items-center space-x-1.5">
               <FileText className="w-3.5 h-3.5 text-slate-400" />
-              <span>Sleep Journal / Notes (Optional)</span>
+              <span>Uyku Günlüğü / Notlar (İsteğe Bağlı)</span>
             </label>
             <textarea
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="e.g. Read a book before bed, drank chamomile tea, room felt cozy..."
+              placeholder="ör. Uyumadan önce kitap okundu, papatya çayı içildi..."
               className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-sm focus:outline-none focus:border-indigo-500 resize-none"
             />
           </div>
@@ -326,13 +329,13 @@ export const SleepLogModal: React.FC<SleepLogModalProps> = ({
               onClick={onClose}
               className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white transition-colors"
             >
-              Cancel
+              İptal
             </button>
             <button
               type="submit"
               className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-medium shadow-lg shadow-indigo-600/30 transition-all"
             >
-              {editingLog ? 'Save Changes' : 'Save Sleep Entry'}
+              {editingLog ? 'Değişiklikleri Kaydet' : 'Uyku Girişini Kaydet'}
             </button>
           </div>
 

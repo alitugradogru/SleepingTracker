@@ -40,7 +40,7 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
             <div className="p-2 rounded-xl bg-indigo-600/20 text-indigo-400">
               <Target className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-semibold text-white">Sleep Goals & Targets</h3>
+            <h3 className="text-base font-semibold text-white">Uyku Hedefleri & Ayarlar</h3>
           </div>
           <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-white rounded-lg">
             <X className="w-5 h-5" />
@@ -51,7 +51,7 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
           
           <div>
             <label className="block text-xs font-medium text-slate-300 mb-1.5">
-              Target Nightly Sleep Duration ({targetHours} Hours)
+              Hedef Gece Uykusu Süresi ({targetHours} Saat)
             </label>
             <input
               type="range"
@@ -63,9 +63,9 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
               className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"
             />
             <div className="flex justify-between text-[11px] text-slate-500 mt-1">
-              <span>5 hrs</span>
-              <span>7-8 hrs (Optimal)</span>
-              <span>11 hrs</span>
+              <span>5 sa</span>
+              <span>7-8 sa (İdeal)</span>
+              <span>11 sa</span>
             </div>
           </div>
 
@@ -73,7 +73,7 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1.5 flex items-center space-x-1">
                 <Moon className="w-3.5 h-3.5 text-indigo-400" />
-                <span>Target Bedtime</span>
+                <span>Hedef Yatış Saati</span>
               </label>
               <input
                 type="time"
@@ -86,7 +86,7 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1.5 flex items-center space-x-1">
                 <Sun className="w-3.5 h-3.5 text-amber-400" />
-                <span>Target Wake Time</span>
+                <span>Hedef Uyanış Saati</span>
               </label>
               <input
                 type="time"
@@ -103,13 +103,13 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
               onClick={onClose}
               className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white"
             >
-              Cancel
+              İptal
             </button>
             <button
               type="submit"
               className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium shadow-md"
             >
-              Update Goal
+              Hedefi Güncelle
             </button>
           </div>
 

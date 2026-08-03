@@ -1,17 +1,17 @@
 import { SleepLog, SleepGoal, LifestyleFactor } from '../types';
 
 export const FACTOR_LABELS: Record<LifestyleFactor, { label: string; icon: string; category: 'negative' | 'positive' }> = {
-  caffeine_late: { label: 'Late Caffeine', icon: '☕', category: 'negative' },
-  alcohol: { label: 'Alcohol', icon: '🍷', category: 'negative' },
-  heavy_meal: { label: 'Late Heavy Meal', icon: '🍕', category: 'negative' },
-  screen_time: { label: 'Screens Before Bed', icon: '📱', category: 'negative' },
-  exercise_evening: { label: 'Late Heavy Exercise', icon: '🏋️', category: 'negative' },
-  meditation: { label: 'Meditation / Breathing', icon: '🧘', category: 'positive' },
-  cool_room: { label: 'Cool Room Temp (65-68°F)', icon: '❄️', category: 'positive' },
-  dark_room: { label: 'Dark / Blackout Room', icon: '🌙', category: 'positive' },
-  stress_high: { label: 'High Evening Stress', icon: '⚡', category: 'negative' },
-  hot_bath: { label: 'Warm Shower / Bath', icon: '🛁', category: 'positive' },
-  magnesium: { label: 'Magnesium Supplement', icon: '💊', category: 'positive' },
+  caffeine_late: { label: 'Geç Kafein', icon: '☕', category: 'negative' },
+  alcohol: { label: 'Alkol Tüketimi', icon: '🍷', category: 'negative' },
+  heavy_meal: { label: 'Geç Ağır Yemek', icon: '🍕', category: 'negative' },
+  screen_time: { label: 'Yatmadan Önce Ekran', icon: '📱', category: 'negative' },
+  exercise_evening: { label: 'Geç Ağır Egzersiz', icon: '🏋️', category: 'negative' },
+  meditation: { label: 'Meditasyon / Nefes', icon: '🧘', category: 'positive' },
+  cool_room: { label: 'Serin Oda Sıcaklığı (18-20°C)', icon: '❄️', category: 'positive' },
+  dark_room: { label: 'Karanlık / Karartılmış Oda', icon: '🌙', category: 'positive' },
+  stress_high: { label: 'Yüksek Akşam Stresi', icon: '⚡', category: 'negative' },
+  hot_bath: { label: 'Ilık Duş / Banyo', icon: '🛁', category: 'positive' },
+  magnesium: { label: 'Magnezyum Takviyesi', icon: '💊', category: 'positive' },
 };
 
 export const DEFAULT_GOALS: SleepGoal = {

@@ -18,8 +18,8 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
     {
       id: 'welcome-msg',
       role: 'model',
-      text: "Hello! I'm Somna, your personal AI Sleep Scientist & Health Advisor. I can analyze your sleep logs, explain circadian rhythms, or answer any health questions about sleep quality. What would you like to know today?",
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      text: "Merhaba! Ben Somna, kişisel Yapay Zeka Uyku Uzmanınız ve Sağlık Danışmanınız. Uyku günlüklerinizi analiz edebilir, sirkadiyen ritimlerinizi açıklayabilir veya uyku kalitenizle ilgili tüm sağlık sorularınızı yanıtlayabilirim. Bugün ne öğrenmek istersiniz?",
+      timestamp: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
   const [inputQuery, setInputQuery] = useState<string>('');
@@ -49,13 +49,13 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
 
       const data = await response.json();
       if (!response.ok || data.error) {
-        throw new Error(data.error || 'Failed to generate AI advice.');
+        throw new Error(data.error || 'Yapay zeka tavsiyesi oluşturulamadı.');
       }
 
       setAdviceData(data.advice);
     } catch (err: any) {
       console.error('Error generating AI advice:', err);
-      setErrorMsg(err.message || 'Unable to connect to AI advisor.');
+      setErrorMsg(err.message || 'Yapay zeka danışmanına bağlanılamadı.');
     } finally {
       setIsGenerating(false);
     }
@@ -69,7 +69,7 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
       id: `user-${Date.now()}`,
       role: 'user',
       text: textToSend,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      timestamp: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
     };
 
     setChatMessages((prev) => [...prev, userMsg]);
@@ -95,14 +95,14 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
 
       const data = await response.json();
       if (!response.ok || data.error) {
-        throw new Error(data.error || 'Failed to get chat response.');
+        throw new Error(data.error || 'Sohbet yanıtı alınamadı.');
       }
 
       const botMsg: ChatMessage = {
         id: `bot-${Date.now()}`,
         role: 'model',
         text: data.reply,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        timestamp: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
       };
 
       setChatMessages((prev) => [...prev, botMsg]);
@@ -111,8 +111,8 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
       const errorBotMsg: ChatMessage = {
         id: `bot-err-${Date.now()}`,
         role: 'model',
-        text: 'Sorry, I encountered an issue processing your request. Please try again.',
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        text: 'Üzgünüm, isteğinizi işlerken bir sorunla karşılaştım. Lütfen tekrar deneyin.',
+        timestamp: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
       };
       setChatMessages((prev) => [...prev, errorBotMsg]);
     } finally {
@@ -121,10 +121,10 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
   };
 
   const promptSuggestions = [
-    'Why do I wake up at 3 AM every night?',
-    'How can I recover from 6 hours of sleep debt?',
-    'Does caffeine after 2 PM ruin REM sleep?',
-    'How do I reset my circadian rhythm after late weekend nights?',
+    'Neden her gece saat 03:00\'te uyanıyorum?',
+    '6 saatlik birikmiş uyku borcunu nasıl telafi edebilirim?',
+    'Saat 14:00\'ten sonra kafein tüketmek REM uykusunu bozar mı?',
+    'Geç hafta sonu gecelerinden sonra sirkadiyen ritmimi nasıl sıfırlarım?',
   ];
 
   return (
@@ -134,11 +134,11 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
       <div className="p-6 rounded-3xl bg-gradient-to-r from-amber-950/40 via-indigo-950 to-slate-900 border border-amber-500/30 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold border border-amber-500/30">
-            AI Health Advisor Powered by Gemini
+            Gemini Destekli Yapay Zeka Sağlık Danışmanı
           </span>
-          <h1 className="text-2xl font-extrabold text-white mt-2">Personalized Sleep Analysis & Advice</h1>
+          <h1 className="text-2xl font-extrabold text-white mt-2">Kişiselleştirilmiş Uyku Analizi & Sağlık Tavsiyesi</h1>
           <p className="text-xs text-slate-300 max-w-xl mt-1">
-            Analyze your sleeping hours, habit correlations, and sleep debt to receive tailored biological advice and optimal bedtime timing.
+            Biyolojik tavsiyeler ve ideal yatış zamanlaması almak için uyku saatlerinizi, alışkanlık ilişkilerinizi ve uyku borcunuzu analiz edin.
           </p>
         </div>
 
@@ -150,12 +150,12 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
           {isGenerating ? (
             <>
               <RefreshCw className="w-4 h-4 animate-spin text-slate-950" />
-              <span>Analyzing Sleep Data...</span>
+              <span>Uyku Verileri Analiz Ediliyor...</span>
             </>
           ) : (
             <>
               <Sparkles className="w-4 h-4 text-slate-950" />
-              <span>{adviceData ? 'Regenerate Analysis' : 'Generate AI Sleep Report'}</span>
+              <span>{adviceData ? 'Analizi Yenile' : 'Yapay Zeka Uyku Raporu Oluştur'}</span>
             </>
           )}
         </button>
@@ -177,16 +177,16 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800 mb-4">
               <div className="flex items-center space-x-2">
                 <HeartPulse className="w-5 h-5 text-indigo-400" />
-                <h2 className="text-lg font-bold text-white">Circadian & Health Assessment</h2>
+                <h2 className="text-lg font-bold text-white">Sirkadiyen & Sağlık Değerlendirmesi</h2>
               </div>
               <span className={`px-3 py-1 rounded-xl text-xs font-bold border ${
-                adviceData.sleepScoreRating === 'Excellent'
+                adviceData.sleepScoreRating === 'Mükemmel' || adviceData.sleepScoreRating === 'Excellent'
                   ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
-                  : adviceData.sleepScoreRating === 'Good'
+                  : adviceData.sleepScoreRating === 'İyi' || adviceData.sleepScoreRating === 'Good'
                   ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
                   : 'bg-amber-500/20 border-amber-500/40 text-amber-300'
               }`}>
-                Score Rating: {adviceData.sleepScoreRating}
+                Puan Değerlendirmesi: {adviceData.sleepScoreRating}
               </span>
             </div>
 
@@ -197,7 +197,7 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
             {/* Key Observations */}
             <div className="space-y-2 mt-4 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
               <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                Key Biological Observations
+                Önemli Biyolojik Gözlemler
               </h3>
               <ul className="space-y-1.5 text-xs text-slate-300">
                 {adviceData.keyObservations?.map((obs, idx) => (
@@ -215,14 +215,14 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
             <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl">
               <h2 className="text-base font-bold text-white mb-4 flex items-center space-x-2">
                 <Clock className="w-4 h-4 text-amber-400" />
-                <span>Your Personalized Daily Sleep & Health Schedule</span>
+                <span>Kişiselleştirilmiş Günlük Uyku & Sağlık Programınız</span>
               </h2>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div className="p-4 rounded-2xl bg-indigo-950/50 border border-indigo-800/40">
                   <span className="text-[10px] font-semibold text-indigo-300 uppercase block mb-1 flex items-center space-x-1">
                     <Moon className="w-3 h-3 text-indigo-400" />
-                    <span>Target Bedtime</span>
+                    <span>Hedef Yatış Saati</span>
                   </span>
                   <span className="text-xl font-extrabold text-white">{adviceData.optimalSchedule.recommendedBedtime}</span>
                 </div>
@@ -230,7 +230,7 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
                 <div className="p-4 rounded-2xl bg-amber-950/50 border border-amber-800/40">
                   <span className="text-[10px] font-semibold text-amber-300 uppercase block mb-1 flex items-center space-x-1">
                     <Sun className="w-3 h-3 text-amber-400" />
-                    <span>Target Wake Time</span>
+                    <span>Hedef Uyanış Saati</span>
                   </span>
                   <span className="text-xl font-extrabold text-white">{adviceData.optimalSchedule.recommendedWakeTime}</span>
                 </div>
@@ -238,7 +238,7 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
                 <div className="p-4 rounded-2xl bg-purple-950/50 border border-purple-800/40">
                   <span className="text-[10px] font-semibold text-purple-300 uppercase block mb-1 flex items-center space-x-1">
                     <Coffee className="w-3 h-3 text-purple-400" />
-                    <span>Caffeine Cutoff</span>
+                    <span>Kafein Kesilme Saati</span>
                   </span>
                   <span className="text-xl font-extrabold text-white">{adviceData.optimalSchedule.caffeineCutoffTime}</span>
                 </div>
@@ -246,7 +246,7 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
                 <div className="p-4 rounded-2xl bg-cyan-950/50 border border-cyan-800/40">
                   <span className="text-[10px] font-semibold text-cyan-300 uppercase block mb-1 flex items-center space-x-1">
                     <Sparkles className="w-3 h-3 text-cyan-400" />
-                    <span>Wind-Down Start</span>
+                    <span>Gece Rahatlama Başlangıcı</span>
                   </span>
                   <span className="text-xl font-extrabold text-white">{adviceData.optimalSchedule.windDownStartTime}</span>
                 </div>
@@ -258,7 +258,7 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
           <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
             <h2 className="text-base font-bold text-white flex items-center space-x-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>Actionable Health & Hygiene Recommendations</span>
+              <span>Uygulanabilir Sağlık & Hijyen Tavsiyeleri</span>
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -267,9 +267,9 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-indigo-400">{item.category}</span>
                     <span className={`text-[10px] px-2 py-0.5 rounded-md font-bold uppercase ${
-                      item.impact === 'High' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-slate-800 text-slate-300'
+                      item.impact === 'Yüksek' || item.impact === 'High' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-slate-800 text-slate-300'
                     }`}>
-                      {item.impact} Impact
+                      {item.impact} Etki
                     </span>
                   </div>
                   <h3 className="text-sm font-bold text-white">{item.title}</h3>
@@ -297,8 +297,8 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
             <Bot className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base font-bold text-white">Ask Somna AI Sleep Coach</h2>
-            <p className="text-xs text-slate-400">Ask any questions about health, sleep debt, or insomnia relief</p>
+            <h2 className="text-base font-bold text-white">Somna AI Uyku Koçuna Sorun</h2>
+            <p className="text-xs text-slate-400">Sağlık, uyku borcu veya uykusuzlukla ilgili sorularınızı sorun</p>
           </div>
         </div>
 
@@ -350,7 +350,7 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
           {isSendingChat && (
             <div className="flex items-center space-x-2 text-xs text-indigo-400 animate-pulse">
               <Bot className="w-4 h-4" />
-              <span>Somna is typing health advice...</span>
+              <span>Somna yanıt hazırlıyor...</span>
             </div>
           )}
         </div>
@@ -367,7 +367,7 @@ export const AIAdviceView: React.FC<AIAdviceViewProps> = ({ logs, stats, goals }
             type="text"
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
-            placeholder="Ask a question about your sleep hours or health..."
+            placeholder="Uyku saatleriniz veya sağlığınız hakkında bir soru sorun..."
             className="flex-1 px-4 py-3 rounded-2xl bg-slate-950 border border-slate-800 text-white text-xs sm:text-sm focus:outline-none focus:border-indigo-500"
           />
           <button

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { sleepAudio } from '../utils/audioSynthesizer';
-import { Moon, Volume2, VolumeX, Square, Sun, Wind, Sparkles } from 'lucide-react';
+import { Moon, Volume2, VolumeX, Sun, Wind, Sparkles } from 'lucide-react';
 
 interface LiveSleepTrackerModalProps {
   isOpen: boolean;
@@ -18,7 +18,7 @@ export const LiveSleepTrackerModal: React.FC<LiveSleepTrackerModalProps> = ({
   const [activeSound, setActiveSound] = useState<'rain' | 'waves' | 'pink_noise' | 'crickets' | 'none'>('none');
   const [volume, setVolume] = useState<number>(0.5);
   const [showBreathing, setShowBreathing] = useState<boolean>(false);
-  const [breathPhase, setBreathPhase] = useState<'Inhale' | 'Hold' | 'Exhale'>('Inhale');
+  const [breathPhase, setBreathPhase] = useState<'Nefes Al' | 'Tut' | 'Nefes Ver'>('Nefes Al');
   const [breathSec, setBreathSec] = useState<number>(4);
 
   // Live timer interval
@@ -42,14 +42,14 @@ export const LiveSleepTrackerModal: React.FC<LiveSleepTrackerModalProps> = ({
       breathTimer = setInterval(() => {
         setBreathSec((prev) => {
           if (prev <= 1) {
-            if (breathPhase === 'Inhale') {
-              setBreathPhase('Hold');
+            if (breathPhase === 'Nefes Al') {
+              setBreathPhase('Tut');
               return 7;
-            } else if (breathPhase === 'Hold') {
-              setBreathPhase('Exhale');
+            } else if (breathPhase === 'Tut') {
+              setBreathPhase('Nefes Ver');
               return 8;
             } else {
-              setBreathPhase('Inhale');
+              setBreathPhase('Nefes Al');
               return 4;
             }
           }
@@ -121,7 +121,7 @@ export const LiveSleepTrackerModal: React.FC<LiveSleepTrackerModalProps> = ({
           onClick={handleExitModal}
           className="absolute top-5 right-5 text-slate-500 hover:text-white text-xs px-3 py-1.5 rounded-xl bg-slate-800/60 transition-colors"
         >
-          Close Night Mode
+          Gece Modunu Kapat
         </button>
 
         {/* Icon & Title */}
@@ -129,22 +129,22 @@ export const LiveSleepTrackerModal: React.FC<LiveSleepTrackerModalProps> = ({
           <Moon className="w-8 h-8 animate-pulse" />
         </div>
 
-        <h2 className="text-2xl font-bold text-white mb-1">Live Night Sleep Tracker</h2>
+        <h2 className="text-2xl font-bold text-white mb-1">Canlı Gece Uykusu Takibi</h2>
         <p className="text-xs text-slate-400 mb-6">
-          {startTime ? 'Sleep session active. Sleep tight!' : 'Press start when lying down to sleep'}
+          {startTime ? 'Uyku oturumu aktif. İyi uykular!' : 'Uyumak için yatağa geçtiğinizde başlat düğmesine basın'}
         </p>
 
         {/* Live Timer Display */}
         {startTime ? (
           <div className="my-6 p-6 rounded-2xl bg-slate-950/80 border border-slate-800/80">
             <div className="text-xs font-medium text-indigo-400 mb-2 uppercase tracking-widest">
-              Elapsed Sleeping Time
+              Geçen Uyku Süresi
             </div>
             <div className="text-5xl font-extrabold text-white font-mono tracking-tight">
               {pad(hours)}:{pad(minutes)}:{pad(seconds)}
             </div>
             <p className="text-xs text-slate-500 mt-2">
-              Started at {startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              Başlama saati: {startTime.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
             </p>
           </div>
         ) : (
@@ -152,7 +152,7 @@ export const LiveSleepTrackerModal: React.FC<LiveSleepTrackerModalProps> = ({
             onClick={handleStartSleep}
             className="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold shadow-xl shadow-indigo-600/30 transition-all transform active:scale-95 mb-6"
           >
-            🌙 Start Sleeping Now
+            🌙 Şimdi Uykuyu Başlat
           </button>
         )}
 
@@ -161,21 +161,21 @@ export const LiveSleepTrackerModal: React.FC<LiveSleepTrackerModalProps> = ({
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-semibold text-slate-300 flex items-center space-x-1.5">
               <Volume2 className="w-4 h-4 text-indigo-400" />
-              <span>Relaxing Ambient Sleep Noise</span>
+              <span>Rahatlatıcı Ortam Sesi</span>
             </span>
             {activeSound !== 'none' && (
               <span className="text-[10px] text-emerald-400 font-medium px-2 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-800">
-                Playing Ambient Sound
+                Ses Çalınıyor
               </span>
             )}
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
             {[
-              { id: 'rain', label: 'Rain', icon: '🌧️' },
-              { id: 'waves', label: 'Waves', icon: '🌊' },
-              { id: 'crickets', label: 'Crickets', icon: '🦗' },
-              { id: 'pink_noise', label: 'Deep Noise', icon: '💨' },
+              { id: 'rain', label: 'Yağmur', icon: '🌧️' },
+              { id: 'waves', label: 'Dalgalar', icon: '🌊' },
+              { id: 'crickets', label: 'Cırcır Böceği', icon: '🦗' },
+              { id: 'pink_noise', label: 'Derin Rüzgar', icon: '💨' },
             ].map((snd) => (
               <button
                 key={snd.id}
@@ -217,9 +217,9 @@ export const LiveSleepTrackerModal: React.FC<LiveSleepTrackerModalProps> = ({
           >
             <span className="flex items-center space-x-2">
               <Wind className="w-4 h-4 text-cyan-400" />
-              <span>4-7-8 Wind-Down Breathing Exercise</span>
+              <span>4-7-8 Rahatlama Nefes Egzersizi</span>
             </span>
-            <span className="text-indigo-400 font-medium">{showBreathing ? 'Hide' : 'Start'}</span>
+            <span className="text-indigo-400 font-medium">{showBreathing ? 'Gizle' : 'Başlat'}</span>
           </button>
 
           {showBreathing && (
@@ -232,9 +232,9 @@ export const LiveSleepTrackerModal: React.FC<LiveSleepTrackerModalProps> = ({
                 <Sparkles className="w-6 h-6 text-cyan-300" />
               </div>
               <p className="text-[11px] text-cyan-200/80 mt-2">
-                {breathPhase === 'Inhale' && 'Inhale deeply through your nose for 4s'}
-                {breathPhase === 'Hold' && 'Hold your breath calmly for 7s'}
-                {breathPhase === 'Exhale' && 'Exhale slowly through your mouth for 8s'}
+                {breathPhase === 'Nefes Al' && 'Burnunuzdan 4 saniye boyunca derin nefes alın'}
+                {breathPhase === 'Tut' && 'Nefesinizi 7 saniye sakince tutun'}
+                {breathPhase === 'Nefes Ver' && 'Ağzınızdan 8 saniye boyunca yavaşça nefes verin'}
               </p>
             </div>
           )}
@@ -247,7 +247,7 @@ export const LiveSleepTrackerModal: React.FC<LiveSleepTrackerModalProps> = ({
             className="w-full py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold shadow-lg shadow-amber-500/20 transition-all flex items-center justify-center space-x-2"
           >
             <Sun className="w-5 h-5 text-slate-950" />
-            <span>☀️ I'm Awake Now (Save Session)</span>
+            <span>☀️ Uyandım (Oturumu Kaydet)</span>
           </button>
         )}
 
